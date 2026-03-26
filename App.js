@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from './screens/HomeScreen';
-import DetalleScreen from './screens/DetalleScreen';
+import PerfilScreen from './screens/PerfilScreen';
 import CarritoScreen from './screens/CarritoScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegistroUsuario from './screens/RegistroUsuario';
@@ -25,7 +25,7 @@ function Rutas() {
       {usuario ? (
         <>
           <Stack.Screen name="Inicio" component={HomeScreen} />
-          <Stack.Screen name="Detalle" component={DetalleScreen} />
+          <Stack.Screen name="Perfil" component={PerfilScreen} />
           <Stack.Screen name="Carrito" component={CarritoScreen} />
         </>
       ) : (

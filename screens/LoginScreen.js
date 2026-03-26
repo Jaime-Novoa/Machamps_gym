@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
+import { LinearGradient } from 'expo-linear-gradient';
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen({ navigation }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,61 +15,175 @@ export default function LoginScreen({navigation}) {
 
     if (!ok) {
       Alert.alert("Error", "Credenciales incorrectas");
-
-      //La siguiente linea muestar el mensaje en el navegador
-      alert("Usuario o contraseña incorrectas.")
+      alert("Usuario o contraseña incorrectas.");
     }
   };
 
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      colors={['#d56705', '#4a0b00']}
+      locations={[0, 0.7]}
+      style={styles.container}
+    >
 
+      {/* LOGO */}
+      <Image
+        source={require('../assets/Logo.jpg')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
 
-      <Image source={require('../assets/Logo.jpg')} style={{width: 200, height: 200, alignContent: 'center', marginBottom: 20}}/>
+      {/* MENU */}
+      <View style={styles.menuTop}>
+        <View style={styles.activeTab}>
+          <Text style={styles.menuItemActive}>INICIAR SESION</Text>
+          <View style={styles.lineaMenu}></View>
+        </View>
 
-      <View style={{flexDirection: 'row', justifyContent: 'center', gap: 40}}>
-        <Text>Iniciar Sesión</Text>
-        <Text onPress={() => navigation.navigate('Registro')}>Regtistrarse</Text>
+        <Text
+          style={styles.menuItemInactive}
+          onPress={() => navigation.navigate('Registro')}
+        >
+          REGISTRARSE
+        </Text>
+        
       </View>
 
-      <Text style={styles.titulo}>Iniciar Sesión</Text>
+      {/* INPUT USUARIO */}
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Usuario"
+          placeholderTextColor="#1d3744"
+          style={styles.input}
+          onChangeText={setEmail}
+        />
+      </View>
 
-      <TextInput
-        placeholder="Usuario (email)"
-        style={styles.input}
-        onChangeText={setEmail}
-      />
+      {/* INPUT CONTRASEÑA */}
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Contraseña"
+          placeholderTextColor="#1d3744"
+          secureTextEntry
+          style={styles.input}
+          onChangeText={setPassword}
+        />
+      </View>
 
-      <TextInput
-        placeholder="Contraseña"
-        secureTextEntry
-        style={styles.input}
-        onChangeText={setPassword}
-      />
+      {/* BOTON ACCEDER CON GRADIENTE */}
+      <TouchableOpacity onPress={manejarLogin} style={styles.btnWrapper}>
+        <LinearGradient
+          colors={['#ff7a00', '#ffcc00']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.btnAcceder}
+        >
+          <Text style={styles.btnText}>ACCEDER</Text>
+        </LinearGradient>
+      </TouchableOpacity>
 
-      <Button title="Acceder" onPress={manejarLogin} />
-      <Text style={{textAlign: 'center', marginTop: 12}} 
-      onPress={() => navigation.navigate('Cambiar Contraseña')}>Ovlidé mi Contraseña</Text>
+      {/* OLVIDE CONTRASEÑA */}
+      <Text
+        style={styles.forgotPassword}
+        onPress={() => navigation.navigate('Cambiar Contraseña')}
+      >
+        ¿Olvide mi contraseña?
+      </Text>
 
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    padding: 20
+    alignItems: 'center',
+    paddingTop: 80,
   },
-  titulo: {
-    fontSize: 24,
-    marginBottom: 20,
-    textAlign: 'center'
-  },
-  input: {
-    borderWidth: 1,
+
+  logo: {
+    width: 280,
+    height: 280,
     marginBottom: 10,
-    padding: 10,
-    borderRadius: 5
-  }
+  },
+
+  menuTop: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 50,
+    marginBottom: 35,
+    alignItems: 'flex-end',
+  },
+
+  activeTab: {
+    alignItems: 'center',
+  },
+
+  menuItemActive: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 12,
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+  },
+
+  menuItemInactive: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 12,
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+    opacity: 0.5,
+  },
+
+  lineaMenu: {
+    width: 60,
+    height: 2,
+    backgroundColor: '#fff',
+    marginTop: 6,
+  },
+
+  inputContainer: {
+    width: 300,
+    height: 48,
+    backgroundColor: '#fff',
+    borderRadius: 24,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    marginBottom: 18,
+  },
+
+  input: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#1d3744',
+    letterSpacing: 0.8,
+  },
+
+  btnWrapper: {
+    width: 300,
+    marginTop: 10,
+  },
+
+  btnAcceder: {
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  btnText: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 12,
+    letterSpacing: 1,
+  },
+
+  forgotPassword: {
+    marginTop: 22,
+    color: '#fff',
+    opacity: 0.6,
+    fontSize: 12,
+    letterSpacing: 0.8,
+  },
 });

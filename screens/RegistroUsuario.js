@@ -1,110 +1,214 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Button, ScrollView, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert
+} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { AuthContext } from '../context/AuthContext';
 
 export default function RegistroUsuario({ navigation }) {
 
-    const [usuario, setUsuario] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+  const [usuario, setUsuario] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-    const { register } = useContext(AuthContext);
+  const { register } = useContext(AuthContext);
 
+  const handleRegister = () => {
 
-    const handleRegister = () => {
+    if (!usuario || !email || !password || !confirmPassword) {
+      Alert.alert("Error", "Todos los campos son obligatorios");
+      return;
+    }
 
-        if (!usuario || !email || !password || !confirmPassword) {
-            
-            //Alert solo funciona en el telfono, en el navegador no se muestra
-            Alert.alert("Error", "Todos los campos son obligatorios");
-            
-            //La siguiente linea muestar el mensaje en el navegador
-            alert("Todos los campos son obligatorios");
-            return;
-        }
+    if (password !== confirmPassword) {
+      Alert.alert("Error", "Las contraseñas no coinciden");
+      return;
+    }
 
-        if (password !== confirmPassword) {
-            Alert.alert("Error", "Las contraseñas no coinciden");
+    const resultado = register(usuario, email, password);
 
-            //La siguiente linea muestar el mensaje en el navegador
-            alert("Las contraseñas no coinciden")
-            return;
-        }
+    if (!resultado.success) {
+      Alert.alert("Error", resultado.message);
+    } else {
+      Alert.alert("Éxito", "El usuario ha sido registrado correctamente");
+      navigation.navigate('Login');
+    }
+  };
 
-        const resultado = register(usuario, email, password);
+  return (
+    <LinearGradient
+      colors={['#d56705', '#4a0b00']}
+      locations={[0, 0.7]}
+      style={styles.container}
+    >
 
-        if (!resultado.success) {
-            Alert.alert("Error", resultado.message);
+      {/* LOGO */}
+      <Image
+        source={require('../assets/Logo.jpg')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
 
-            //La siguiente linea muestar el mensaje en el navegador
-            alert(resultado.message)
-        } else {
-            Alert.alert("Éxito", "El usuario ha sido registrado correctamente");
+      {/* MENU */}
+      <View style={styles.menuTop}>
+        <Text
+          style={styles.menuItemInactive}
+          onPress={() => navigation.navigate('Login')}
+        >
+          INICIAR SESION
+        </Text>
 
-            //La siguiente linea muestar el mensaje en el navegador
-            alert("El usuario ha sido registrado correctamente")
-        }
-    };
+        <View style={styles.activeTab}>
+          <Text style={styles.menuItemActive}>REGISTRARSE</Text>
+          <View style={styles.lineaMenu}></View>
+        </View>
+      </View>
 
+      {/* INPUTS */}
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Usuario"
+          placeholderTextColor="#1d3744"
+          style={styles.input}
+          onChangeText={setUsuario}
+        />
+      </View>
 
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Correo electrónico"
+          placeholderTextColor="#1d3744"
+          style={styles.input}
+          onChangeText={setEmail}
+        />
+      </View>
 
-    return (
-        <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Contraseña"
+          placeholderTextColor="#1d3744"
+          secureTextEntry
+          style={styles.input}
+          onChangeText={setPassword}
+        />
+      </View>
 
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Confirmar contraseña"
+          placeholderTextColor="#1d3744"
+          secureTextEntry
+          style={styles.input}
+          onChangeText={setConfirmPassword}
+        />
+      </View>
 
-            <Image source={require('../assets/Logo.jpg')} style={{ width: 200, height: 200, alignContent: 'center', marginBottom: 20 }} />
+      {/* BOTON */}
+      <TouchableOpacity onPress={handleRegister} style={styles.btnWrapper}>
+        <LinearGradient
+          colors={['#ff7a00', '#ffcc00']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.btnAcceder}
+        >
+          <Text style={styles.btnText}>REGISTRARSE</Text>
+        </LinearGradient>
+      </TouchableOpacity>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 20 }}>
-
-                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                    <Text style={{ marginRight: 20 }}>Iniciar sesion</Text>
-                </TouchableOpacity>
-                <Text>Registrarse</Text>
-            </View>
-
-            <Text style={styles.titulo}>Usuario</Text>
-            <TextInput placeholder="Ingrese usuario"
-                style={styles.input}
-                onChangeText={setUsuario} />
-
-            <Text style={styles.titulo}>Contraseña</Text>
-            <TextInput placeholder="Ingrese contraseña"
-                style={styles.input}
-                secureTextEntry
-                onChangeText={setPassword} />
-
-            <Text style={styles.titulo}>Confirmar Contraseña</Text>
-            <TextInput placeholder="Confirme contraseña"
-                style={styles.input}
-                secureTextEntry
-                onChangeText={setConfirmPassword} />
-
-            <Text style={styles.titulo}>Correo electronico</Text>
-            <TextInput placeholder="Ingrese correo"
-                style={styles.input}
-                onChangeText={setEmail} />
-
-            <Button title="Registrarse" onPress={handleRegister}/>
-
-        </ScrollView>
-    );
+    </LinearGradient>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20
-    },
-    titulo: {
-        fontSize: 24,
-        marginBottom: 20,
-        textAlign: 'center'
-    },
-    input: {
-        borderWidth: 1,
-        marginBottom: 10,
-        padding: 10,
-        borderRadius: 5
-    }
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 60,
+  },
+
+  logo: {
+    width: 300,
+    height: 260,
+    marginBottom: 20,
+  },
+
+  menuTop: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 50,
+    marginBottom: 30,
+    alignItems: 'flex-end',
+  },
+
+  activeTab: {
+    alignItems: 'center',
+  },
+
+  menuItemActive: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 11,
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
+  },
+
+  menuItemInactive: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 11,
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
+    opacity: 0.5,
+  },
+
+  lineaMenu: {
+    width: 100,
+    height: 2,
+    backgroundColor: '#fff',
+    marginTop: 6,
+  },
+
+  inputContainer: {
+    width: 280,
+    height: 50,
+    backgroundColor: '#e6e6e6',
+    borderRadius: 30,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    marginBottom: 18,
+  },
+
+  input: {
+    fontSize: 12,
+    color: '#1d3744',
+    letterSpacing: 1,
+  },
+
+  btnWrapper: {
+    width: 280,
+    marginTop: 10,
+  },
+
+  btnAcceder: {
+    height: 50,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#fff',
+  },
+
+  btnText: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 12,
+    letterSpacing: 1.5,
+  },
 });
