@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AuthContext } from '../context/AuthContext';
+import { ScrollView } from 'react-native-web';
 
 export default function RegistroUsuario({ navigation }) {
 
@@ -36,73 +37,75 @@ export default function RegistroUsuario({ navigation }) {
   };
 
   return (
-    <LinearGradient
-      colors={['#d56705', '#4a0b00']}
-      locations={[0, 0.7]}
-      style={styles.container}
-    >
+    <ScrollView>
+      <LinearGradient
+        colors={['#d56705', '#4a0b00']}
+        locations={[0, 0.7]}
+        style={styles.container}
+      >
 
-      {/* LOGO */}
-      <Image
-        source={require('../assets/Logo.jpg')}
-        style={styles.logo}
-        resizeMode="contain"
-      />
+        {/* LOGO */}
+        <Image
+          source={require('../assets/Logo.jpg')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
 
-      {/* MENU */}
-      <View style={styles.menuTop}>
-    
+        {/* MENU */}
+        <View style={styles.menuTop}>
 
-        <View style={styles.activeTab}>
-          <Text style={styles.menuItemActive}>RECUPERACION DE CONTRASEÑA</Text>
-          <View style={styles.lineaMenu}></View>
+
+          <View style={styles.activeTab}>
+            <Text style={styles.menuItemActive}>RECUPERACION DE CONTRASEÑA</Text>
+            <View style={styles.lineaMenu}></View>
+          </View>
         </View>
-      </View>
 
-      {/* INPUT USUARIO */}
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Usuario"
-          placeholderTextColor="#1d3744"
-          style={styles.input}
-          onChangeText={setUsuario}
-        />
-      </View>
+        {/* INPUT USUARIO */}
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Usuario"
+            placeholderTextColor="#1d3744"
+            style={styles.input}
+            onChangeText={setUsuario}
+          />
+        </View>
 
-      {/* INPUT EMAIL */}
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Correo electrónico"
-          placeholderTextColor="#1d3744"
-          style={styles.input}
-          onChangeText={setEmail}
-        />
-      </View>
+        {/* INPUT EMAIL */}
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Correo electrónico"
+            placeholderTextColor="#1d3744"
+            style={styles.input}
+            onChangeText={setEmail}
+          />
+        </View>
 
-      {/* INPUT PASSWORD */}
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Nueva contraseña"
-          placeholderTextColor="#1d3744"
-          secureTextEntry
-          style={styles.input}
-          onChangeText={setPassword}
-        />
-      </View>
+        {/* INPUT PASSWORD */}
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Nueva contraseña"
+            placeholderTextColor="#1d3744"
+            secureTextEntry
+            style={styles.input}
+            onChangeText={setPassword}
+          />
+        </View>
 
-      {/* BOTON */}
-      <TouchableOpacity onPress={handleRecuperar} style={styles.btnWrapper}>
-        <LinearGradient
-          colors={['#ff7a00', '#ffcc00']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={styles.btnAcceder}
-        >
-          <Text style={styles.btnText}>CONTINUAR</Text>
-        </LinearGradient>
-      </TouchableOpacity>
+        {/* BOTON */}
+        <TouchableOpacity onPress={handleRecuperar} style={styles.btnWrapper}>
+          <LinearGradient
+            colors={['#ff7a00', '#ffcc00']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.btnAcceder}
+          >
+            <Text style={styles.btnText}>CONTINUAR</Text>
+          </LinearGradient>
+        </TouchableOpacity>
 
-    </LinearGradient>
+      </LinearGradient>
+    </ScrollView>
   );
 }
 

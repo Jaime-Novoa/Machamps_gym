@@ -9,85 +9,93 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons'
+import { ScrollView } from 'react-native';
 
-export default function HomeScreen({navigation}) {
+export default function HomeScreen({ navigation }) {
   return (
-    <LinearGradient
-      colors={['#d56705', '#4a0b00']}
-      style={styles.container}
-    >
+    <View style={{ flex: 1 }}>
 
-      {/* HEADER */}
-      <View style={styles.header}>
+      {/* SCROLL */}
+      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <LinearGradient
-          colors={['#ff7a00', '#ffcc00']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={styles.headerBox}
+          colors={['#d56705', '#4a0b00']}
+          style={styles.container}
         >
-          <Text style={styles.headerText}>MACHAMP'S GYM</Text>
+
+          {/* HEADER */}
+          <View style={styles.header}>
+            <LinearGradient
+              colors={['#ff7a00', '#ffcc00']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={styles.headerBox}
+            >
+              <Text style={styles.headerText}>MACHAMP'S GYM</Text>
+            </LinearGradient>
+          </View>
+
+          {/* TITULO */}
+          <Text style={styles.subtitulo}>Resumen de usuario</Text>
+
+          {/* CARD */}
+          <View style={styles.cardContainer}>
+            <Image
+              source={{ uri: 'https://picsum.photos/300' }}
+              style={styles.card}
+            />
+          </View>
+
+          {/* SEARCH */}
+          <TextInput
+            placeholder="Search....."
+            placeholderTextColor="#555"
+            style={styles.search}
+          />
+
+          {/* OPCIONES */}
+          <View style={styles.options}>
+            <View style={styles.option}>
+              <Image source={{ uri: 'https://picsum.photos/100?1' }} style={styles.optionImg} />
+              <Text style={styles.optionText}>Sedes</Text>
+            </View>
+
+            <View style={styles.option}>
+              <Image source={{ uri: 'https://picsum.photos/100?2' }} style={styles.optionImg} />
+              <Text style={styles.optionText}>Actividades</Text>
+            </View>
+
+            <View style={styles.option}>
+              <Image source={{ uri: 'https://picsum.photos/100?3' }} style={styles.optionImg} />
+              <Text style={styles.optionText}>Horario</Text>
+            </View>
+          </View>
+
         </LinearGradient>
-      </View>
+      </ScrollView>
 
-      {/* TITULO */}
-      <Text style={styles.subtitulo}>Resumen de usuario</Text>
-
-      {/* CARD CENTRAL */}
-      <View style={styles.cardContainer}>
-        <Image
-          source={{ uri: 'https://picsum.photos/300' }}
-          style={styles.card}
-        />
-      </View>
-
-      {/* SEARCH */}
-      <TextInput
-        placeholder="Search....."
-        placeholderTextColor="#555"
-        style={styles.search}
-      />
-
-      {/* OPCIONES */}
-      <View style={styles.options}>
-        <View style={styles.option}>
-          <Image source={{ uri: 'https://picsum.photos/100?1' }} style={styles.optionImg} />
-          <Text style={styles.optionText}>Sedes</Text>
-        </View>
-
-        <View style={styles.option}>
-          <Image source={{ uri: 'https://picsum.photos/100?2' }} style={styles.optionImg} />
-          <Text style={styles.optionText}>Actividades</Text>
-        </View>
-
-        <View style={styles.option}>
-          <Image source={{ uri: 'https://picsum.photos/100?3' }} style={styles.optionImg} />
-          <Text style={styles.optionText}>Horario</Text>
-        </View>
-      </View>
-
-      {/* FOOTER */}
+      {/* FOOTER (FUERA DEL SCROLL) */}
       <LinearGradient
         colors={['#ff0000', '#7a0000']}
         style={styles.footer}
       >
-          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-    <FontAwesome name="home" size={24} color="#fff" />
-  </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <FontAwesome name="home" size={24} color="#fff" />
+        </TouchableOpacity>
 
-  <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
-    <FontAwesome name="user" size={24} color="#fff" />
-  </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Perfil')}>
+          <FontAwesome name="user" size={24} color="#fff" />
+        </TouchableOpacity>
 
-  <TouchableOpacity onPress={() => navigation.navigate('Actividades')}>
-    <FontAwesome name="list" size={24} color="#fff" />
-  </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Actividades')}>
+          <FontAwesome name="list" size={24} color="#fff" />
+        </TouchableOpacity>
 
-  <TouchableOpacity onPress={() => navigation.navigate('Sedes')}>
-    <FontAwesome name="users" size={24} color="#fff" />
-  </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Sedes')}>
+          <FontAwesome name="users" size={24} color="#fff" />
+        </TouchableOpacity>
       </LinearGradient>
 
-    </LinearGradient>
+    </View>
   );
 }
 

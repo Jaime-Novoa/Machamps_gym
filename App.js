@@ -21,12 +21,13 @@ function Rutas() {
   const { usuario } = useContext(AuthContext);
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       {usuario ? (
         <>
           <Stack.Screen name="Inicio" component={HomeScreen} />
           <Stack.Screen name="Perfil" component={PerfilScreen} />
           <Stack.Screen name="Carrito" component={CarritoScreen} />
+         
         </>
       ) : (
         <>

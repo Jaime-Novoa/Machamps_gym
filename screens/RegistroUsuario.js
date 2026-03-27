@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AuthContext } from '../context/AuthContext';
+import { ScrollView } from 'react-native-web';
 
 export default function RegistroUsuario({ navigation }) {
 
@@ -43,86 +44,88 @@ export default function RegistroUsuario({ navigation }) {
   };
 
   return (
-    <LinearGradient
-      colors={['#d56705', '#4a0b00']}
-      locations={[0, 0.7]}
-      style={styles.container}
-    >
+    <ScrollView>
+      <LinearGradient
+        colors={['#d56705', '#4a0b00']}
+        locations={[0, 0.7]}
+        style={styles.container}
+      >
 
-      {/* LOGO */}
-      <Image
-        source={require('../assets/Logo.jpg')}
-        style={styles.logo}
-        resizeMode="contain"
-      />
+        {/* LOGO */}
+        <Image
+          source={require('../assets/Logo.jpg')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
 
-      {/* MENU */}
-      <View style={styles.menuTop}>
-        <Text
-          style={styles.menuItemInactive}
-          onPress={() => navigation.navigate('Login')}
-        >
-          INICIAR SESION
-        </Text>
+        {/* MENU */}
+        <View style={styles.menuTop}>
+          <Text
+            style={styles.menuItemInactive}
+            onPress={() => navigation.navigate('Login')}
+          >
+            INICIAR SESION
+          </Text>
 
-        <View style={styles.activeTab}>
-          <Text style={styles.menuItemActive}>REGISTRARSE</Text>
-          <View style={styles.lineaMenu}></View>
+          <View style={styles.activeTab}>
+            <Text style={styles.menuItemActive}>REGISTRARSE</Text>
+            <View style={styles.lineaMenu}></View>
+          </View>
         </View>
-      </View>
 
-      {/* INPUTS */}
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Usuario"
-          placeholderTextColor="#1d3744"
-          style={styles.input}
-          onChangeText={setUsuario}
-        />
-      </View>
+        {/* INPUTS */}
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Usuario"
+            placeholderTextColor="#1d3744"
+            style={styles.input}
+            onChangeText={setUsuario}
+          />
+        </View>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Correo electrónico"
-          placeholderTextColor="#1d3744"
-          style={styles.input}
-          onChangeText={setEmail}
-        />
-      </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Correo electrónico"
+            placeholderTextColor="#1d3744"
+            style={styles.input}
+            onChangeText={setEmail}
+          />
+        </View>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Contraseña"
-          placeholderTextColor="#1d3744"
-          secureTextEntry
-          style={styles.input}
-          onChangeText={setPassword}
-        />
-      </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Contraseña"
+            placeholderTextColor="#1d3744"
+            secureTextEntry
+            style={styles.input}
+            onChangeText={setPassword}
+          />
+        </View>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Confirmar contraseña"
-          placeholderTextColor="#1d3744"
-          secureTextEntry
-          style={styles.input}
-          onChangeText={setConfirmPassword}
-        />
-      </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            placeholder="Confirmar contraseña"
+            placeholderTextColor="#1d3744"
+            secureTextEntry
+            style={styles.input}
+            onChangeText={setConfirmPassword}
+          />
+        </View>
 
-      {/* BOTON */}
-      <TouchableOpacity onPress={handleRegister} style={styles.btnWrapper}>
-        <LinearGradient
-          colors={['#ff7a00', '#ffcc00']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={styles.btnAcceder}
-        >
-          <Text style={styles.btnText}>REGISTRARSE</Text>
-        </LinearGradient>
-      </TouchableOpacity>
+        {/* BOTON */}
+        <TouchableOpacity onPress={handleRegister} style={styles.btnWrapper}>
+          <LinearGradient
+            colors={['#ff7a00', '#ffcc00']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.btnAcceder}
+          >
+            <Text style={styles.btnText}>REGISTRARSE</Text>
+          </LinearGradient>
+        </TouchableOpacity>
 
-    </LinearGradient>
+      </LinearGradient>
+    </ScrollView>
   );
 }
 

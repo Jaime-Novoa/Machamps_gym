@@ -1,54 +1,64 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { ScrollView } from 'react-native';
+
 
 export default function DetalleScreen({ navigation }) {
+
+  const { logout } = useContext(AuthContext);
+  const handleLogout = () => { logout(); };
+  const { usuario } = useContext(AuthContext);
+
   return (
-    <View style={styles.container}>
+    <ScrollView>
+      <View style={styles.container}>
 
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="chevron-back" size={28} color="#fff" />
-        </TouchableOpacity>
+        {/* Header */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="chevron-back" size={28} color="#fff" />
+          </TouchableOpacity>
 
-        <View style={styles.headerTitle}>
-          <Text style={styles.headerText}>PERFIL</Text>
+          <View style={styles.headerTitle}>
+            <Text style={styles.headerText}>PERFIL</Text>
+          </View>
         </View>
+
+        {/* Perfil */}
+        <View style={styles.profileContainer}>
+          <Image
+            source={{ uri: 'https://randomuser.me/api/portraits/women/44.jpg' }}
+            style={styles.avatar}
+          />
+
+          <Text style={styles.nombre}>{usuario?.username}</Text>
+          <Text style={styles.username}>{usuario?.email}</Text>
+        </View>
+
+        {/* Opciones */}
+        <View style={styles.menu}>
+          {renderItem("Settings", "settings-outline")}
+          {renderItem("Billing details", "card-outline")}
+          {renderItem("User management", "person-outline")}
+        </View>
+
+        <View style={styles.divider} />
+
+        <View style={styles.menu}>
+          {renderItem("Information", "information-circle-outline")}
+          {renderItem("Log out", "log-out-outline", handleLogout)}
+        </View>
+
       </View>
-
-      {/* Perfil */}
-      <View style={styles.profileContainer}>
-        <Image
-          source={{ uri: 'https://randomuser.me/api/portraits/women/44.jpg' }}
-          style={styles.avatar}
-        />
-
-        <Text style={styles.nombre}>Clara García</Text>
-        <Text style={styles.username}>@claragarcia</Text>
-      </View>
-
-      {/* Opciones */}
-      <View style={styles.menu}>
-        {renderItem("Settings", "settings-outline")}
-        {renderItem("Billing details", "card-outline")}
-        {renderItem("User management", "person-outline")}
-      </View>
-
-      <View style={styles.divider} />
-
-      <View style={styles.menu}>
-        {renderItem("Information", "information-circle-outline")}
-        {renderItem("Log out", "log-out-outline")}
-      </View>
-
-    </View>
+    </ScrollView>
   );
 }
 
 // 🔹 Item reutilizable
-const renderItem = (texto, icono) => (
-  <TouchableOpacity style={styles.item}>
+const renderItem = (texto, icono, onPress) => (
+  <TouchableOpacity style={styles.item} onPress={onPress}>
     <View style={styles.iconContainer}>
       <Ionicons name={icono} size={20} color="#fff" />
     </View>
