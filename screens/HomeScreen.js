@@ -15,14 +15,12 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
 
-      {/* SCROLL */}
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <LinearGradient
           colors={['#d56705', '#4a0b00']}
           style={styles.container}
         >
 
-          {/* HEADER */}
           <View style={styles.header}>
             <LinearGradient
               colors={['#ff7a00', '#ffcc00']}
@@ -34,10 +32,8 @@ export default function HomeScreen({ navigation }) {
             </LinearGradient>
           </View>
 
-          {/* TITULO */}
           <Text style={styles.subtitulo}>Resumen de usuario</Text>
 
-          {/* CARD */}
           <View style={styles.cardContainer}>
             <Image
               source={{ uri: 'https://picsum.photos/300' }}
@@ -45,40 +41,43 @@ export default function HomeScreen({ navigation }) {
             />
           </View>
 
-          {/* SEARCH */}
           <TextInput
             placeholder="Search....."
             placeholderTextColor="#555"
             style={styles.search}
           />
 
-          {/* OPCIONES */}
           <View style={styles.options}>
-            <View style={styles.option}>
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => navigation.navigate('Sedes')}
+            >
               <Image source={{ uri: 'https://picsum.photos/100?1' }} style={styles.optionImg} />
               <Text style={styles.optionText}>Sedes</Text>
-            </View>
+            </TouchableOpacity>
 
             <View style={styles.option}>
               <Image source={{ uri: 'https://picsum.photos/100?2' }} style={styles.optionImg} />
               <Text style={styles.optionText}>Actividades</Text>
             </View>
 
-            <View style={styles.option}>
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => navigation.navigate('Entrenadores')}
+            >
               <Image source={{ uri: 'https://picsum.photos/100?3' }} style={styles.optionImg} />
               <Text style={styles.optionText}>Horario</Text>
-            </View>
+            </TouchableOpacity>
           </View>
 
         </LinearGradient>
       </ScrollView>
 
-      {/* FOOTER (FUERA DEL SCROLL) */}
       <LinearGradient
         colors={['#ff0000', '#7a0000']}
         style={styles.footer}
       >
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Inicio')}>
           <FontAwesome name="home" size={24} color="#fff" />
         </TouchableOpacity>
 
@@ -86,11 +85,11 @@ export default function HomeScreen({ navigation }) {
           <FontAwesome name="user" size={24} color="#fff" />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Actividades')}>
-          <FontAwesome name="list" size={24} color="#fff" />
+        <TouchableOpacity onPress={() => navigation.navigate('Sedes')}>
+          <FontAwesome name="building" size={24} color="#fff" />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('Sedes')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Entrenadores')}>
           <FontAwesome name="users" size={24} color="#fff" />
         </TouchableOpacity>
       </LinearGradient>

@@ -9,6 +9,9 @@ import CarritoScreen from './screens/CarritoScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegistroUsuario from './screens/RegistroUsuario';
 import RecuperarContra from './screens/RecuperarContrasenia';
+import SedesScreen from './screens/SedesScreen';
+import DetalleSedeScreen from './screens/DetalleSedeScreen';
+import EntrenadoresScreen from './screens/EntrenadoresScreen';
 
 import { CarritoProvider } from './context/CarritoContext';
 import { AuthProvider, AuthContext } from './context/AuthContext';
@@ -27,6 +30,9 @@ function Rutas() {
           <Stack.Screen name="Inicio" component={HomeScreen} />
           <Stack.Screen name="Perfil" component={PerfilScreen} />
           <Stack.Screen name="Carrito" component={CarritoScreen} />
+          <Stack.Screen name="Sedes" component={SedesScreen} />
+          <Stack.Screen name="DetalleSede" component={DetalleSedeScreen} />
+          <Stack.Screen name="Entrenadores" component={EntrenadoresScreen} />
          
         </>
       ) : (
@@ -34,6 +40,7 @@ function Rutas() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Registro" component={RegistroUsuario} />
         <Stack.Screen name = 'Cambiar Contraseña' component={RecuperarContra} />
+        
         </>
       )}
     </Stack.Navigator>
