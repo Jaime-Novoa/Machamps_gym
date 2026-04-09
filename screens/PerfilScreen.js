@@ -12,46 +12,44 @@ export default function DetalleScreen({ navigation }) {
   const { usuario } = useContext(AuthContext);
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
 
-        {/* Header */}
-        <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons name="chevron-back" size={28} color="#fff" />
-          </TouchableOpacity>
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="chevron-back" size={28} color="#fff" />
+        </TouchableOpacity>
 
-          <View style={styles.headerTitle}>
-            <Text style={styles.headerText}>PERFIL</Text>
-          </View>
+        <View style={styles.headerTitle}>
+          <Text style={styles.headerText}>PERFIL</Text>
         </View>
-
-        {/* Perfil */}
-        <View style={styles.profileContainer}>
-          <Image
-            source={{ uri: 'https://randomuser.me/api/portraits/women/44.jpg' }}
-            style={styles.avatar}
-          />
-
-          <Text style={styles.nombre}>{usuario?.username}</Text>
-          <Text style={styles.username}>{usuario?.email}</Text>
-        </View>
-
-        {/* Opciones */}
-        <View style={styles.menu}>
-          {renderItem("Settings", "settings-outline")}
-          {renderItem("Billing details", "card-outline")}
-          {renderItem("User management", "person-outline")}
-        </View>
-
-        <View style={styles.divider} />
-
-        <View style={styles.menu}>
-          {renderItem("Information", "information-circle-outline")}
-          {renderItem("Log out", "log-out-outline", handleLogout)}
-        </View>
-
       </View>
+
+      {/* Perfil */}
+      <View style={styles.profileContainer}>
+        <Image
+          source={{ uri: 'https://randomuser.me/api/portraits/women/44.jpg' }}
+          style={styles.avatar}
+        />
+
+        <Text style={styles.nombre}>{usuario?.username}</Text>
+        <Text style={styles.username}>{usuario?.email}</Text>
+      </View>
+
+      {/* Opciones */}
+      <View style={styles.menu}>
+        {renderItem("Settings", "settings-outline")}
+        {renderItem("Billing details", "card-outline")}
+        {renderItem("User management", "person-outline")}
+      </View>
+
+      <View style={styles.divider} />
+
+      <View style={styles.menu}>
+        {renderItem("Information", "information-circle-outline")}
+        {renderItem("Log out", "log-out-outline", handleLogout)}
+      </View>
+
     </ScrollView>
   );
 }
@@ -71,7 +69,7 @@ const renderItem = (texto, icono, onPress) => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     padding: 20,
     backgroundColor: '#8B0000'
   },

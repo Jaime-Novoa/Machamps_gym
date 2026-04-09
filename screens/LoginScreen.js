@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import { LinearGradient } from 'expo-linear-gradient';
-import { ScrollView } from 'react-native-web';
+import { ScrollView } from 'react-native';
 
 export default function LoginScreen({ navigation }) {
 
@@ -21,87 +21,81 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
-    <ScrollView>
-      <LinearGradient
-        colors={['#d56705', '#4a0b00']}
-        locations={[0, 0.7]}
-        style={styles.container}
-      >
+  <LinearGradient
+    colors={['#d56705', '#4a0b00']}
+    locations={[0, 0.7]}
+    style={{ flex: 1 }}
+  >
+    <ScrollView contentContainerStyle={styles.container}>
+      
+      <Image
+        source={require('../assets/Logo.jpg')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
 
-        {/* LOGO */}
-        <Image
-          source={require('../assets/Logo.jpg')}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-
-        {/* MENU */}
-        <View style={styles.menuTop}>
-          <View style={styles.activeTab}>
-            <Text style={styles.menuItemActive}>INICIAR SESION</Text>
-            <View style={styles.lineaMenu}></View>
-          </View>
-
-          <Text
-            style={styles.menuItemInactive}
-            onPress={() => navigation.navigate('Registro')}
-          >
-            REGISTRARSE
-          </Text>
-
+      <View style={styles.menuTop}>
+        <View style={styles.activeTab}>
+          <Text style={styles.menuItemActive}>INICIAR SESION</Text>
+          <View style={styles.lineaMenu}></View>
         </View>
 
-        {/* INPUT USUARIO */}
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="Usuario"
-            placeholderTextColor="#1d3744"
-            style={styles.input}
-            onChangeText={setEmail}
-          />
-        </View>
-
-        {/* INPUT CONTRASEÑA */}
-        <View style={styles.inputContainer}>
-          <TextInput
-            placeholder="Contraseña"
-            placeholderTextColor="#1d3744"
-            secureTextEntry
-            style={styles.input}
-            onChangeText={setPassword}
-          />
-        </View>
-
-        {/* BOTON ACCEDER CON GRADIENTE */}
-        <TouchableOpacity onPress={manejarLogin} style={styles.btnWrapper}>
-          <LinearGradient
-            colors={['#ff7a00', '#ffcc00']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={styles.btnAcceder}
-          >
-            <Text style={styles.btnText}>ACCEDER</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-
-        {/* OLVIDE CONTRASEÑA */}
         <Text
-          style={styles.forgotPassword}
-          onPress={() => navigation.navigate('Cambiar Contraseña')}
+          style={styles.menuItemInactive}
+          onPress={() => navigation.navigate('Registro')}
         >
-          ¿Olvide mi contraseña?
+          REGISTRARSE
         </Text>
+      </View>
 
-      </LinearGradient>
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Usuario"
+          placeholderTextColor="#1d3744"
+          style={styles.input}
+          onChangeText={setEmail}
+        />
+      </View>
+
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="Contraseña"
+          placeholderTextColor="#1d3744"
+          secureTextEntry
+          style={styles.input}
+          onChangeText={setPassword}
+        />
+      </View>
+
+      <TouchableOpacity onPress={manejarLogin} style={styles.btnWrapper}>
+        <LinearGradient
+          colors={['#ff7a00', '#ffcc00']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.btnAcceder}
+        >
+          <Text style={styles.btnText}>ACCEDER</Text>
+        </LinearGradient>
+      </TouchableOpacity>
+
+      <Text
+        style={styles.forgotPassword}
+        onPress={() => navigation.navigate('Cambiar Contraseña')}
+      >
+        ¿Olvide mi contraseña?
+      </Text>
+
     </ScrollView>
-  );
+  </LinearGradient>
+);
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     alignItems: 'center',
     paddingTop: 80,
+    paddingBottom: 50,
   },
 
   logo: {

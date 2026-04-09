@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Image,
-  TouchableOpacity
-} from 'react-native';
+import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons'
 import { ScrollView } from 'react-native';
@@ -14,12 +7,11 @@ import { ScrollView } from 'react-native';
 export default function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
-
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-        <LinearGradient
-          colors={['#d56705', '#4a0b00']}
-          style={styles.container}
-        >
+      <LinearGradient
+        colors={['#d56705', '#4a0b00']}
+        style={{ flex: 1 }}
+      >
+        <ScrollView contentContainerStyle={styles.container}>
 
           <View style={styles.header}>
             <LinearGradient
@@ -70,8 +62,8 @@ export default function HomeScreen({ navigation }) {
             </TouchableOpacity>
           </View>
 
-        </LinearGradient>
-      </ScrollView>
+        </ScrollView>
+      </LinearGradient>
 
       <LinearGradient
         colors={['#ff0000', '#7a0000']}
@@ -93,16 +85,16 @@ export default function HomeScreen({ navigation }) {
           <FontAwesome name="users" size={24} color="#fff" />
         </TouchableOpacity>
       </LinearGradient>
-
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     paddingTop: 60,
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 120
   },
 
   header: {

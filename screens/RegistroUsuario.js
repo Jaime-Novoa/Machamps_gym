@@ -1,16 +1,8 @@
 import React, { useState, useContext } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Alert
-} from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AuthContext } from '../context/AuthContext';
-import { ScrollView } from 'react-native-web';
+import { ScrollView } from 'react-native';
 
 export default function RegistroUsuario({ navigation }) {
 
@@ -44,12 +36,12 @@ export default function RegistroUsuario({ navigation }) {
   };
 
   return (
-    <ScrollView>
-      <LinearGradient
-        colors={['#d56705', '#4a0b00']}
-        locations={[0, 0.7]}
-        style={styles.container}
-      >
+    <LinearGradient
+      colors={['#d56705', '#4a0b00']}
+      locations={[0, 0.7]}
+      style={{ flex: 1 }}
+    >
+      <ScrollView contentContainerStyle={styles.container}>
 
         {/* LOGO */}
         <Image
@@ -124,16 +116,17 @@ export default function RegistroUsuario({ navigation }) {
           </LinearGradient>
         </TouchableOpacity>
 
-      </LinearGradient>
-    </ScrollView>
+      </ScrollView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     alignItems: 'center',
     paddingTop: 60,
+    paddingBottom: 50,
   },
 
   logo: {
