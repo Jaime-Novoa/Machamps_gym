@@ -1,5 +1,4 @@
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
 import {
     View,
     Text,
@@ -10,14 +9,39 @@ import {
     ScrollView
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import React, { useState, useEffect } from 'react';
 
-const sedes = [
-    { id: 1, nombre: 'Sede Norte', estado: 'Abierto' },
-    { id: 2, nombre: 'Sede Centro', estado: 'Abierto' },
-    { id: 3, nombre: 'Sede Sur', estado: 'Cerrado' }
-];
+const BASE_URL = 'http://localhost:8080';
 
 export default function SedesScreen({ navigation }) {
+
+    // 2. Definimos los estados para las sedes y la carga de datos
+    const [sedes, setSedes] = useState([]);
+    const [cargando, setCargando] = useState(true);
+
+    // 3. Función que hace la petición HTTP a tu Ktor
+    const obtenerSedes = async () => {
+        try {
+            const respuesta = await fetch(`${BASE_URL}/sedes`);
+            if (respuesta.ok) {
+                const datosSedes = await respuesta.json();
+                setSedes(datosSedes); // Guardamos la lista de la BD en nuestro estado
+            } else {
+                console.error("Error al obtener las sedes desde el servidor");
+            }
+        } catch (error) {
+            console.error("Error de red al conectar con Ktor:", error);
+        } finally {
+            setCargando(false); // Apagamos el indicador de carga
+        }
+    };
+
+    // 4. Se ejecuta automáticamente cuando el usuario entra a la pantalla
+    useEffect(() => {
+        obtenerSedes();
+    }, []);
+
+
     return (
         <LinearGradient colors={['#d56705', '#4a0b00']} style={{ flex: 1 }}>
             <View style={styles.header}>

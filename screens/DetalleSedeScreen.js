@@ -19,6 +19,7 @@ export default function DetalleSedeScreen({ route, navigation }) {
         </View>
       </View>
 
+      {/* Usamos el nombre real de la BD */}
       <Text style={styles.title}>{sede.nombre}</Text>
 
       <Image
@@ -26,19 +27,28 @@ export default function DetalleSedeScreen({ route, navigation }) {
         style={styles.img}
       />
 
+      {/* Muestra el aforo real traído desde Firebase */}
       <View style={styles.info}>
         <Text style={styles.label}>Aforo</Text>
-        <Text style={styles.valor}>26</Text>
+        <Text style={styles.valor}>{sede.aforo} personas</Text>
       </View>
 
+      {/* Muestra el horario real traído desde Firebase */}
       <View style={styles.info}>
         <Text style={styles.label}>Horario</Text>
-        <Text style={styles.valor}>7:00 AM - 11:00 PM</Text>
+        <Text style={styles.valor}>{sede.horario}</Text>
       </View>
 
+      {/* Muestra las actividades de la lista unidas por un guion.
+        Si por alguna razón viene vacío, muestra 'Ninguna' para que no falle.
+      */}
       <View style={styles.info}>
         <Text style={styles.label}>Actividades</Text>
-        <Text style={styles.valor}>Zumba - Pilates</Text>
+        <Text style={styles.valor}>
+          {sede.actividades && sede.actividades.length > 0 
+            ? sede.actividades.join(' - ') 
+            : 'Ninguna'}
+        </Text>
       </View>
 
     </LinearGradient>

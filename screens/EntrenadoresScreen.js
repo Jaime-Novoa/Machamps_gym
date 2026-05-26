@@ -1,22 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'; // <-- Unificado e importados los hooks
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  ActivityIndicator // Para mostrar la animación de carga
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 
-const entrenadores = [
-  { id: 1, nombre: 'Carlos Ruiz' },
-  { id: 2, nombre: 'Ana Torres' },
-  { id: 3, nombre: 'Luis Pérez' }
-];
+const BASE_URL = 'http://127.0.0.1:8080';
 
 export default function EntrenadoresScreen({ navigation }) {
+  // 1. Estados para almacenar los entrenadores y controlar la carga
+  const [entrenadores, setEntrenadores] = useState([]);
+  const [cargando, setCargando] = useState(true);
+
+  // 2. Función asincrónica para obtener los entrenadores desde Ktor
+  const obtenerEntrenadores = async () => {
+    try {
+      const respuesta = await fetch(`${BASE_URL}/entrenadores`);
+      if (respuesta.ok) {
+        const datos = await respuesta.json();
+        setEntrenadores(datos); // Guardamos la lista de la BD en el estado
+      } else {
+        console.error("Error al obtener los entrenadores del servidor");
+      }
+    } catch (error) {
+      console.error("Error de red al conectar con el backend de entrenadores:", error);
+    } finally {
+      setCargando(false); // Apagamos el indicador de carga
+    }
+  };
+
+  // 3. Hook para disparar la carga automáticamente al entrar a la pantalla
+  useEffect(() => {
+    obtenerEntrenadores();
+  }, []);
+
   return (
     <LinearGradient colors={['#d56705', '#4a0b00']} style={{ flex: 1 }}>
 
@@ -35,17 +58,25 @@ export default function EntrenadoresScreen({ navigation }) {
         style={styles.search}
       />
 
-      <ScrollView>
-        {entrenadores.map((e) => (
-          <View key={e.id} style={styles.card}>
-            <Text style={styles.nombre}>{e.nombre}</Text>
+      {/* 4. Renderizado condicional: Ruedita de carga o la lista de la BD */}
+      {cargando ? (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator size="large" color="#fff" />
+          <Text style={{ color: '#fff', marginTop: 10 }}>Cargando entrenadores...</Text>
+        </View>
+      ) : (
+        <ScrollView>
+          {entrenadores.map((e) => (
+            <View key={e.id} style={styles.card}>
+              <Text style={styles.nombre}>{e.nombre}</Text>
 
-            <TouchableOpacity style={styles.btn}>
-              <Text style={styles.btnText}>AGREGAR</Text>
-            </TouchableOpacity>
-          </View>
-        ))}
-      </ScrollView>
+              <TouchableOpacity style={styles.btn}>
+                <Text style={styles.btnText}>AGREGAR</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </ScrollView>
+      )}
 
     </LinearGradient>
   );

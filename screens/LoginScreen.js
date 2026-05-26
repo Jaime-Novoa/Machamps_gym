@@ -8,11 +8,12 @@ export default function LoginScreen({ navigation }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const URL_back = 'http://127.0.0.1:8080';
 
   const { login } = useContext(AuthContext);
 
-  const manejarLogin = () => {
-    const ok = login(email, password);
+  const manejarLogin = async () => {
+    const ok = await login(email, password);
 
     if (!ok) {
       Alert.alert("Error", "Credenciales incorrectas");

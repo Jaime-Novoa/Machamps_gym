@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import HomeScreen from './screens/HomeScreen';
 import PerfilScreen from './screens/PerfilScreen';
-import CarritoScreen from './screens/CarritoScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegistroUsuario from './screens/RegistroUsuario';
 import RecuperarContra from './screens/RecuperarContrasenia';
@@ -13,7 +12,7 @@ import SedesScreen from './screens/SedesScreen';
 import DetalleSedeScreen from './screens/DetalleSedeScreen';
 import EntrenadoresScreen from './screens/EntrenadoresScreen';
 
-import { CarritoProvider } from './context/CarritoContext';
+
 import { AuthProvider, AuthContext } from './context/AuthContext';
 import { StackScreen } from 'react-native-screens';
 
@@ -29,7 +28,6 @@ function Rutas() {
         <>
           <Stack.Screen name="Inicio" component={HomeScreen} />
           <Stack.Screen name="Perfil" component={PerfilScreen} />
-          <Stack.Screen name="Carrito" component={CarritoScreen} />
           <Stack.Screen name="Sedes" component={SedesScreen} />
           <Stack.Screen name="DetalleSede" component={DetalleSedeScreen} />
           <Stack.Screen name="Entrenadores" component={EntrenadoresScreen} />
@@ -50,11 +48,9 @@ function Rutas() {
 export default function App() {
   return (
     <AuthProvider>
-      <CarritoProvider>
         <NavigationContainer>
           <Rutas />
         </NavigationContainer>
-      </CarritoProvider>
     </AuthProvider>
   );
 }
